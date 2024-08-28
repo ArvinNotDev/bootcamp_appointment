@@ -1,21 +1,19 @@
 import React from 'react';
 import './doctors.css';
-import docimg1 from '../assets/images/drHashemiImg.svg';
-import docimg2 from '../assets/images/drimage.svg';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 const doctorsData = [
-  { id: 1, imgSrc: docimg2, name: 'آقا دکتر', speciality: "متخصص گوش و حلق و بینی"},
-  { id: 2, imgSrc: docimg1, name: 'خانم دکتر',speciality: "متخصص گوش و حلق و بینی"},
-  { id: 3, imgSrc: docimg1, name: 'خانم دکتر', speciality: "متخصص گوش و حلق و بینی"},
-  { id: 4, imgSrc: docimg2, name: 'آقا دکتر', speciality: "متخصص گوش و حلق و بینی"},
-  { id: 5, imgSrc: docimg1, name: 'خانم دکتر', speciality: "متخصص گوش و حلق و بینی"},
-  { id: 6, imgSrc: docimg1, name: 'خانم دکتر', speciality: "متخصص گوش و حلق و بینی"},
-  { id: 7, imgSrc: docimg2, name: 'آقا دکتر', speciality: "متخصص گوش و حلق و بینی"},
-  { id: 8, imgSrc: docimg1, name: 'خانم دکتر', speciality: "متخصص گوش و حلق و بینی"},
-  { id: 9, imgSrc: docimg1, name: 'خانم دکتر', speciality: "متخصص گوش و حلق و بینی"},
-  { id: 10, imgSrc: docimg1, name: 'خانم دکتر', speciality: "متخصص گوش و حلق و بینی"},
+  { id: 1, name: 'آقا دکتر', speciality: "متخصص گوش و حلق و بینی"},
+  { id: 2, name: 'خانم دکتر',speciality: "متخصص گوش و حلق و بینی"},
+  { id: 3, name: 'خانم دکتر', speciality: "متخصص گوش و حلق و بینی"},
+  { id: 4, name: 'آقا دکتر', speciality: "متخصص گوش و حلق و بینی"},
+  { id: 5, name: 'خانم دکتر', speciality: "متخصص گوش و حلق و بینی"},
+  { id: 6, name: 'خانم دکتر', speciality: "متخصص گوش و حلق و بینی"},
+  { id: 7, name: 'آقا دکتر', speciality: "متخصص گوش و حلق و بینی"},
+  { id: 8, name: 'خانم دکتر', speciality: "متخصص گوش و حلق و بینی"},
+  { id: 9, name: 'خانم دکتر', speciality: "متخصص گوش و حلق و بینی"},
+  { id: 10, name: 'خانم دکتر', speciality: "متخصص گوش و حلق و بینی"},
 ];
 
 
@@ -89,7 +87,6 @@ function Doctors() {
         <a href="" key={doctor.id}>
           <div id="profile">
             <div id="picture">
-              <img src={doctor.imgSrc} alt={doctor.name} />
             </div>
             <div id="name">
               <p><b>{doctor.name}</b></p>
