@@ -87,6 +87,7 @@ function Doctors() {
         <a href="" key={doctor.id}>
           <div id="profile">
             <div id="picture">
+
             </div>
             <div id="name">
               <p><b>{doctor.name}</b></p>
