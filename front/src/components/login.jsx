@@ -30,9 +30,9 @@ function Login() {
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                alert("Code sent to your phone!");
+                alert("پیامک ارسال شد!");
             } else {
-                alert("Failed to send code.");
+                alert("شماره یافت نشد!");
             }
         })
         .catch(error => {
@@ -57,7 +57,7 @@ function Login() {
                 localStorage.setItem("refresh", data.refresh);
                 window.location.href = "/successfullyLoggedIn";
             } else {
-                alert("Invalid login credentials!");
+                alert("رمز یا پسوورد غلط است... دوباره تلاش کنید!");
             }
         })
         .catch(error => {
@@ -76,7 +76,7 @@ function Login() {
                     <p id="mobile-text">برای ورود لطفا اطلاعات خود را وارد کنید.</p>
                     <div>
                         <button onClick={() => setLoginMethod('username')}>ورود با یوزرنیم</button>
-                        <button onClick={() => setLoginMethod('phone')}>ورود با ایمیل</button>
+                        <button onClick={() => setLoginMethod('phone')}>ورود با شماره</button>
                     </div>
                     {loginMethod === 'username' ? (
                         <>
@@ -140,5 +140,5 @@ function Login() {
         </div>
     );
 }
-
+alert
 export default Login;

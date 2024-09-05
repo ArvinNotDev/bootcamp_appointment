@@ -16,14 +16,14 @@ function NewUser() {
 
     const validateForm = () => {
         const newErrors = {};
-        if (!formData.first_name) newErrors.first_name = 'نام ضروریه';
-        if (!formData.last_name) newErrors.last_name = 'نام خانوادگی ضروریه';
-        if (!formData.username) newErrors.username = 'نام کاربری ضروریه';
-        if (!formData.email) newErrors.email = 'ایمیل ضروریه';
-        if (!formData.phone_number) newErrors.phone_number = 'شماره موبایل ضروریه';
-        if (!formData.birth_data) newErrors.birth_data = 'تاریخ تولد ضروریه';
-        if (!formData.password) newErrors.password = 'رمز عبور ضروریه';
-        // Add more validations if needed
+        {errors.first_name && <p className="error">{Array.isArray(errors.first_name) ? errors.first_name.join(', ') : errors.first_name}</p>}
+        {errors.last_name && <p className="error">{Array.isArray(errors.last_name) ? errors.last_name.join(', ') : errors.last_name}</p>}
+        {errors.username && <p className="error">{Array.isArray(errors.username) ? errors.username.join(', ') : errors.username}</p>}
+        {errors.email && <p className="error">{Array.isArray(errors.email) ? errors.email.join(', ') : errors.email}</p>}
+        {errors.phone_number && <p className="error">{Array.isArray(errors.phone_number) ? errors.phone_number.join(', ') : errors.phone_number}</p>}
+        {errors.birth_data && <p className="error">{Array.isArray(errors.birth_data) ? errors.birth_data.join(', ') : errors.birth_data}</p>}
+        {errors.password && <p className="error">{Array.isArray(errors.password) ? errors.password.join(', ') : errors.password}</p>}
+
 
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
@@ -41,25 +41,37 @@ function NewUser() {
         e.preventDefault();
         if (validateForm()) {
             try {
-                const response = await fetch('http://localhost:8000/api/accounts/user/', { // Change URL to your backend endpoint
+                const response = await fetch('http://localhost:8000/api/accounts/user/', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify(formData),
                 });
-                
+
                 const data = await response.json();
 
                 if (response.ok) {
-                    alert('Account created successfully!');
-                    // Redirect or clear form as needed
+                    alert('حساب کاربری با موفقیت ایجاد شد!');
+                    setFormData({
+                        first_name: '',
+                        last_name: '',
+                        username: '',
+                        email: '',
+                        phone_number: '',
+                        birth_data: '',
+                        password: ''
+                    });
                 } else {
-                    setErrors(data.errors || { general: 'An error occurred. Please try again.' });
+                    if (data && typeof data === 'object') {
+                        setErrors(data); 
+                    } else {
+                        setErrors({ general: 'خطایی رخ داده است. لطفاً دوباره تلاش کنید.' });
+                    }
                 }
             } catch (error) {
                 console.error('Error:', error);
-                setErrors({ general: 'An error occurred. Please try again.' });
+                setErrors({ general: 'خطایی رخ داده است. لطفاً دوباره تلاش کنید.' });
             }
         }
     };
@@ -67,80 +79,80 @@ function NewUser() {
     return (
         <div id="newUser-container">
             <div className="form-wrapper">
-                <h2>Create New Account</h2>
-                <form onSubmit={handleSubmit}>
+                <h2>ایجاد حساب کاربری جدید</h2>
+                <form onSubmit={handleSubmit} id='myform'>
                     {errors.general && <p className="error">{errors.general}</p>}
                     <div className="input-group">
-                        <label htmlFor="first_name">First Name</label>
+                        <label htmlFor="first_name">نام</label>
                         <input
                             type="text"
                             id="first_name"
                             value={formData.first_name}
                             onChange={handleChange}
                         />
-                        {errors.first_name && <p className="error">{errors.first_name}</p>}
+                        {errors.first_name && <p className="error">{errors.first_name[0]}</p>}
                     </div>
                     <div className="input-group">
-                        <label htmlFor="last_name">Last Name</label>
+                        <label htmlFor="last_name">نام خانوادگی</label>
                         <input
                             type="text"
                             id="last_name"
                             value={formData.last_name}
                             onChange={handleChange}
                         />
-                        {errors.last_name && <p className="error">{errors.last_name}</p>}
+                        {errors.last_name && <p className="error">{errors.last_name[0]}</p>}
                     </div>
                     <div className="input-group">
-                        <label htmlFor="username">Username</label>
+                        <label htmlFor="username">نام کاربری</label>
                         <input
                             type="text"
                             id="username"
                             value={formData.username}
                             onChange={handleChange}
                         />
-                        {errors.username && <p className="error">{errors.username}</p>}
+                        {errors.username && <p className="error">{errors.username[0]}</p>}
                     </div>
                     <div className="input-group">
-                        <label htmlFor="email">Email</label>
+                        <label htmlFor="email">ایمیل</label>
                         <input
                             type="email"
                             id="email"
                             value={formData.email}
                             onChange={handleChange}
                         />
-                        {errors.email && <p className="error">{errors.email}</p>}
+                        {errors.email && <p className="error">{errors.email[0]}</p>}
                     </div>
                     <div className="input-group">
-                        <label htmlFor="phone_number">Phone Number</label>
+                        <label htmlFor="phone_number">شماره موبایل</label>
                         <input
                             type="tel"
                             id="phone_number"
                             value={formData.phone_number}
                             onChange={handleChange}
                         />
-                        {errors.phone_number && <p className="error">{errors.phone_number}</p>}
+                        {errors.phone_number && <p className="error">{errors.phone_number[0]}</p>}
                     </div>
                     <div className="input-group">
-                        <label htmlFor="birth_data">Birth Date</label>
+                        <label htmlFor="birth_data">تاریخ تولد</label>
                         <input
                             type="date"
                             id="birth_data"
                             value={formData.birth_data}
                             onChange={handleChange}
                         />
-                        {errors.birth_data && <p className="error">{errors.birth_data}</p>}
+                        {errors.birth_data && <p className="error">{errors.birth_data[0]}</p>}
                     </div>
                     <div className="input-group">
-                        <label htmlFor="password">Password</label>
+                        <label htmlFor="password">رمز عبور</label>
                         <input
                             type="password"
                             id="password"
                             value={formData.password}
                             onChange={handleChange}
                         />
-                        {errors.password && <p className="error">{errors.password}</p>}
+                        {errors.password && <p className="error">{errors.password[0]}</p>}
                     </div>
-                    <button type="submit">Create Account</button>
+                    <button type="submit">ایجاد حساب</button>
                 </form>
             </div>
         </div>

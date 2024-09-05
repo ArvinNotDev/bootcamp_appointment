@@ -25,6 +25,8 @@
     max-width: 400px;
     width: 100%;
     margin: 1rem;
+    position: relative;
+    top: -100px;
 }
 
 #profile-box img {
@@ -69,7 +71,7 @@
 }
 
 #profile-box input:focus {
-    border-color: #007bff;
+    border-color: #008cffb6;
     outline: none;
 }
 
@@ -81,7 +83,7 @@
 #profile-box button {
     width: 100%;
     padding: 0.75rem;
-    background-color: #007bff;
+    background-color: #3472b4b7;
     color: #fff;
     border: none;
     border-radius: 8px;

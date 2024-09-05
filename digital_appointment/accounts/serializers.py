@@ -42,32 +42,28 @@ class UserSerializer(serializers.ModelSerializer):
 
     def validate_password(self, value):
         if len(value) < 8:
-            raise serializers.ValidationError("Password must be at least 8 characters long.")
-
+            raise serializers.ValidationError("رمز عبور باید حداقل 8 رقمی باشد.")
         if not any(char in string.ascii_uppercase for char in value):
-            raise serializers.ValidationError("Password must contain at least one uppercase letter.")
-
+            raise serializers.ValidationError("حداقل یک حرف بزرگ باید داشته باشد.")
         if not any(char in string.ascii_lowercase for char in value):
-            raise serializers.ValidationError("Password must contain at least one lowercase letter.")
-
+            raise serializers.ValidationError("حداقل یک حرف کوچک باید داشته باشد.")
         if not any(char in string.digits for char in value):
-            raise serializers.ValidationError("Password must contain at least one digit.")
-
+            raise serializers.ValidationError("رمز عبور باید حداقل یک شماره داشته باشد.")
         return value
 
     def validate_username(self, value):
         if models.User.objects.filter(username=value).exists():
-            raise serializers.ValidationError("Username already exists.")
+            raise serializers.ValidationError("اکانتی با این نام کاربری وجود دارد.")
         return value
 
     def validate_email(self, value):
         if models.User.objects.filter(email=value).exists():
-            raise serializers.ValidationError("Email already exists.")
+            raise serializers.ValidationError("اکانتی با این نام ایمیل وجود دارد.")
         return value
 
     def validate_phone_number(self, value):
         if models.User.objects.filter(phone_number=value).exists():
-            raise serializers.ValidationError("Phone number already exists.")
+            raise serializers.ValidationError("اکانتی با این نام شماره وجود دارد.")
         return value
 
     def create(self, validated_data):
@@ -82,6 +78,7 @@ class UserSerializer(serializers.ModelSerializer):
         if password:
             instance.set_password(password)  # Hash the password before saving
         return super().update(instance, validated_data)
+
 
 
 class LoginSerializer(serializers.Serializer):
